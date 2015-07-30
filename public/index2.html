@@ -1,13 +1,18 @@
-<!doctype html>
-
-<!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="scotchTodo">
-<head>
+<!DOCTYPE html>
+<html lang="en"  ng-app="scotchTodo">
+  <head>
 	<!-- META -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+    <title>Shop without Stops</title>
 
-	<title>Node/Angular Todo App</title>
+<!-- Bootstrap style --> 
+    <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
+    <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
+<!-- Bootstrap style responsive -->	
+	<link href="themes/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+	<link href="themes/css/font-awesome.css" rel="stylesheet" type="text/css">
+
 
 	<!-- SCROLLS -->
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
@@ -21,26 +26,25 @@
 
 	<!-- SPELLS -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
-
 	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
 	<script src="js/services/todos.js"></script> <!-- load our todo service -->
 	<script src="js/core.js"></script> <!-- load our main application -->
-
-</head>
+  </head>
+	
 <!-- SET THE CONTROLLER -->
 <body ng-controller="mainController">
 	<div class="container">
 
 		<!-- HEADER AND TODO COUNT -->
 		<div class="jumbotron text-center">
-			<h1> Total Products<span class="label label-info">{{ todos.length }}</span></h1>
+			<h1> Total Products<span class="label label-info">{{ todos.length }}</span> </h1>
 		</div>
 
-		<!-- TODO LIST -->
-				<a href="index.html"><span class="btn btn-mini btn-primary"><i class="glyphicon glyphicon-home"></i> Return to home Page</span> </a> 
+		<!-- Create Products List -->
+				<a href="index.html" style="align:center"><span class="btn btn-mini btn-primary"><i class="glyphicon glyphicon-home"></i> Return to home Page</span> </a> 
 
 
-		<!-- FORM TO CREATE TODOS -->
+		<!-- FORM TO CREATE PRODUCTS -->
 		<div id="todo-form" class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<form>
@@ -48,58 +52,62 @@
 
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
 						<input type="text" class="form-control input-lg text-center"
-						placeholder="name" ng-model="formData.text">
+						placeholder="Enter Product Name" ng-model="formData.text">
 						 
 						<input type="text" class="form-control input-lg text-center"
 						placeholder="Image 64 bit" ng-model="formData.image">
 						  
 						<input type="text" class="form-control input-lg text-center"
-						placeholder="price 64 bit" ng-model="formData.price">
+						placeholder="Enter Price (64 bit)" ng-model="formData.price">
 						
 						<input type="text" class="form-control input-lg text-center"
-						placeholder="description 64 bit" ng-model="formData.description">
+						placeholder="Enter Description (64 bit)" ng-model="formData.description">
 						
 						<input type="text" class="form-control input-lg text-center"
-						placeholder="shortdescription 64 bit" ng-model="formData.shortdescription">
+						placeholder="Enter Short Description (64 bit)" ng-model="formData.shortdescription">
 						
 						<input type="text" class="form-control input-lg text-center"
-						placeholder="company 64 bit" ng-model="formData.company">
+						placeholder="Enter Company Name (64 bit)" ng-model="formData.company">
 						
 						<input type="text" class="form-control input-lg text-center"
-						placeholder="category 64 bit" ng-model="formData.category">
+						placeholder="Product Category (64 bit)" ng-model="formData.category">
 					</div>
 
 					<!-- createToDo() WILL CREATE NEW TODOS -->
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add to Database</button>
 					
 				</form>
 			</div>
 		</div>
 		
 	 
- 
- 
- <div id="todo-list" class="row">
-			<div class="col-sm-4 col-sm-offset-4">
- 
-				<!-- LOOP OVER THE TODOS IN $scope.todos -->
-				<div class="checkbox" ng-repeat="todo in todos">
-					<label>
-						<input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.name }}
-					<button  class="btn btn-primary btn-lg" ng-click="updateTodo(todo._id)">Update</button>
-					</label>
-					<div> 
-					<img ng-src="data:image/JPEG;base64,{{todo.image}}"   style="height:150px; max-width:150px;"> 
-					<h2>{{todo.price}}
-					</h2>
-					<p>{{todo.shortdescription}}
-					</p>
-					</div>
-				</div>
 
-				<p class="text-center" ng-show="loading">
+<div class="span9">  
+	<div class="well well-small"> 
+			<br/>
+		<div> 
+    <input name="currentselectedCategory" ng-value="currentselectedCategory" type = "hidden"  /> 
+		</div>
+			</h4>
+			<h3>List of Products</h3>
+			  <ul class="thumbnails">
+				<li class="span3" ng-repeat="todo in todos" style="width:253px;">
+			<div class="thumbnail"  style="height:300px;"> 
+					<a href="productDetail.html#/id={{todo._id}}"><img ng-src="data:image/JPEG;base64,{{todo.image}}" style="height:170px;" alt=""></a> 
+					 
+				<div class="caption">
+					  <a href="productDetail.html#/id={{todo._id}}"><h5>{{todo.name}}</h5></a>
+					  <h4 style="text-align:center"> 
+					  <a class="btn" href="#">${{todo.price}}</a>
+					  <a class="btn btn-primary" ng-click="deleteTodo(todo._id)">Delete</a></h4>
+				</div>
+			</div>
+				</li> 
+			  </ul>
+		</div>
+		<p class="text-center" ng-show="loading">
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
-				</p>
+		</p>
 
 			</div>
 		</div>

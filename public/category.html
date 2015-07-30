@@ -204,44 +204,17 @@
 	<div class="row">
 <!-- Sidebar ================================================== -->
 	<div id="sidebar" class="span3">
-		<div class="well well-small"><a id="myCart" href="product_summary.html"><img src="themes/images/ico-cart.png" alt="cart">3 Items in your cart 
-		<span class="label label-info">{{ todos.length }}</span>
-		<span class="badge badge-warning pull-right">$155.00</span></a></div>
+		<div class="well well-small"><h4>List of Categories</h4>
+		</div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
-			<li class="subMenu open"><a> ELECTRONICS [230]</a>
-				<ul>
-				<li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cameras (100) </a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Computers, Tablets & laptop (30)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Mobile Phone (80)</a></li>
+		 
+			<li class="subMenu open"   ng-repeat="todo in todos | unique:'category' |orderBy : 'category' ">
+			<a href="category.html#/category={{todo.category}}"> {{todo.category | uppercase}}</a>
+				<!-- <ul>
+				<li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cameras (100) </a></li> 
 				<li><a href="products.html"><i class="icon-chevron-right"></i>Sound & Vision (15)</a></li>
-				</ul>
-			</li>
-			<li class="subMenu"><a> CLOTHES [840] </a>
-			<ul style="display:none">
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Clothing (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Shoes (8)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Hand Bags (5)</a></li>	
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Men's Clothings  (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Men's Shoes (6)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Kids Clothing (5)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Kids Shoes (3)</a></li>												
-			</ul>
-			</li>
-			<li class="subMenu"><a>FOOD AND BEVERAGES [1000]</a>
-				<ul style="display:none">
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Angoves  (35)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Bouchard Aine & Fils (8)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>French Rabbit (5)</a></li>	
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Louis Bernard  (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>BIB Wine (Bag in Box) (8)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Other Liquors & Wine (5)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Garden (3)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Khao Shong (11)</a></li>												
-			</ul>
-			</li>
-			<li><a href="products.html">HEALTH &amp; BEAUTY [18]</a></li>
-			<li><a href="products.html">SPORTS & LEISURE [58]</a></li>
-			<li><a href="products.html">BOOKS & ENTERTAINMENTS [14]</a></li>
+				</ul> -->
+			</li>  
 		</ul>
 		<br/>
 		  <div class="thumbnail">
@@ -275,21 +248,20 @@
     <input name="currentselectedCategory" ng-value="currentselectedCategory" type = "hidden"  /> 
 </div>
 			</h4> 
-			 
 			</br> 
-
-			<h4>Products </h4>
-			  <ul class="thumbnails">
-				<li class="span3" ng-repeat="todo in todos" ng-if="todo.category ==  currentselectedCategory" style="220px;">
+			<h4>Products</h4>
+			  <ul class="thumbnails" style="display:inline;">
+				<li class="span3" ng-repeat="todo in todos" ng-if="todo.category ==  currentselectedCategory" style="width:253px;">
 				  <div class="thumbnail"  style="height:350px;"> 
-					<a href="productDetail.html#/id={{todo._id}}"><img ng-src="data:image/JPEG;base64,{{todo.image}}" style="max-height:170px; height:auto; max-width:170px;" alt=""></a> 
+					<a href="productDetail.html#/id={{todo._id}}"><img ng-src="data:image/JPEG;base64,{{todo.image}}" style="height:170px;" alt=""></a> 
 					 
 					<div class="caption">
 					  <a href="productDetail.html#/id={{todo._id}}"><h5>{{todo.name}}</h5></a>
-					  <p>{{todo.shortdescription  | limitTo: 100 }}.... 
+					  <p>{{todo.shortdescription  | limitTo: 60 }}.... 
 					  </p> 
 					  <h4 style="text-align:center">
-					  <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">${{todo.price}}</a></h4>
+					  <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> 
+					  <a class="btn btn-primary" href="#">${{todo.price}}</a></h4>
 					</div>
 				  </div>
 				</li> 
