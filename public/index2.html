@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"  ng-app="scotchTodo">
   <head>
+
+
+
+
+    <link data-require="bootstrap-css@*" data-semver="3.3.1" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+    <script data-require="angular.js@*" data-semver="1.3.15" src="https://code.angularjs.org/1.3.15/angular.js"></script>
+    <script data-require="ui-bootstrap@*" data-semver="0.12.1" src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+
+
+
+
+
+
 	<!-- META -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
@@ -33,56 +48,89 @@
 	
 <!-- SET THE CONTROLLER -->
 <body ng-controller="mainController">
+				<a href="index.html" style="align:center"><span class="btn btn-mini btn-primary"><i class="glyphicon glyphicon-home"></i> Return to home Page</span> </a>
+				 Search Products: <input type="text" ng-model="search" placeholder="Search" />
 	<div class="container">
 
-		<!-- HEADER AND TODO COUNT -->
+		<!-- HEADER AND PRODUCTS COUNT -->
 		<div class="jumbotron text-center">
 			<h1> Total Products<span class="label label-info">{{ todos.length }}</span> </h1>
 		</div>
 
-		<!-- Create Products List -->
-				<a href="index.html" style="align:center"><span class="btn btn-mini btn-primary"><i class="glyphicon glyphicon-home"></i> Return to home Page</span> </a> 
-
 
 		<!-- FORM TO CREATE PRODUCTS -->
-		<div id="todo-form" class="row">
+		<div id="todo-form" class="row" ng-controller="validationCtrlr">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
-				<form>
+				<form name="productForm" ng-submit="submittForm()" novalidate>
 					<div class="form-group">
 
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-						<input type="text" class="form-control input-lg text-center"
-						placeholder="Enter Product Name" ng-model="formData.text">
-						 
-						<input type="text" class="form-control input-lg text-center"
-						placeholder="Image 64 bit" ng-model="formData.image">
-						  
-						<input type="text" class="form-control input-lg text-center"
-						placeholder="Enter Price (64 bit)" ng-model="formData.price">
-						
-						<input type="text" class="form-control input-lg text-center"
-						placeholder="Enter Description (64 bit)" ng-model="formData.description">
-						
-						<input type="text" class="form-control input-lg text-center"
-						placeholder="Enter Short Description (64 bit)" ng-model="formData.shortdescription">
-						
-						<input type="text" class="form-control input-lg text-center"
-						placeholder="Enter Company Name (64 bit)" ng-model="formData.company">
-						
-						<input type="text" class="form-control input-lg text-center"
-						placeholder="Product Category (64 bit)" ng-model="formData.category">
-					</div>
+						<!-- Form Validation -->
+		<!-- Product Name -->
+			<div class="form-group" ng-class="{ 'has-error' : productForm.pName.$invalid && !productForm.pName.$pristine }">
+            <label>Product Name</label>
+            <input type="text" name="pName" class="form-control input-lg text-center"
+						placeholder="Enter Product Name" ng-model="formData.text" required>
+            <p ng-show="productForm.pName.$invalid && !productForm.pName.$pristine" class="help-block">Product name is required.</p>
+        </div>
 
-					<!-- createToDo() WILL CREATE NEW TODOS -->
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add to Database</button>
-					
+        <!-- Product Image -->
+			<label>Product Image</label>
+            <input type="text" name="pImage" class="form-control input-lg text-center"
+						placeholder="Image 64 bit (optional)" ng-model="formData.image">
+            
+
+        <!-- Product Price -->
+			<div class="form-group" ng-class="{ 'has-error' : productForm.pName.$invalid && !productForm.pName.$pristine }">
+            <label>Product Price</label>
+            <input type="number" name="pPrice" class="form-control input-lg text-center"
+						placeholder="Enter Price" ng-model="formData.price" required>
+            <p ng-show="productForm.pPrice.$invalid && !productForm.pPrice.$pristine" class="help-block">Product Price is required.</p>
+        </div>
+
+		 <!-- Product Description -->
+			<div class="form-group" ng-class="{ 'has-error' : productForm.pName.$invalid && !productForm.pName.$pristine }">
+            <label>Product Description</label>
+           <input type="text" name="pDescription" class="form-control input-lg text-center"
+						placeholder="Enter Description" ng-model="formData.description" required>
+            <p ng-show="productForm.pDescription.$invalid && !productForm.pDescription.$pristine" class="help-block">Product Description is required.</p>
+        </div>        
+
+        <!-- Product Short Description -->
+<!-- 			<div class="form-group" ng-class="{ 'has-error' : productForm.pName.$invalid && !productForm.pName.$pristine }"> -->
+            <label>Short Description</label>
+           <input type="text" name="pShortDescription" class="form-control input-lg text-center"
+						placeholder="Enter Short Description (optional)" ng-model="formData.shortdescription">
+            <!-- <p ng-show="productForm.pShortDescription.$invalid && !productForm.pShortDescription.$pristine" class="help-block">Short Description is required.</p>
+        </div>  -->
+
+                <!-- Company Name -->
+			<!-- <div class="form-group" ng-class="{ 'has-error' : productForm.pName.$invalid && !productForm.pName.$pristine }"> -->
+            <label>Company Name</label>
+           <input type="text" name="pCompanyName" class="form-control input-lg text-center"
+						placeholder="Enter Company Name (optional)" ng-model="formData.company">
+           <!--  <p ng-show="productForm.pCompanyName.$invalid && !productForm.pCompanyName.$pristine" class="help-block">Company Name is required.</p>
+        </div> -->
+
+        <!-- Product Category -->
+			<div class="form-group" ng-class="{ 'has-error' : productForm.pName.$invalid && !productForm.pName.$pristine }">
+            <label>Product Category</label>
+           <input type="text" name="pCategory" class="form-control input-lg text-center"
+						placeholder="Product Category (64 bit)" ng-model="formData.category" required>
+            <p ng-show="productForm.pCategory.$invalid && !productForm.pCategory.$pristine" class="help-block">Product Category is required.</p>
+        </div>
+
+			</div>
+
+					<!-- createToDo() WILL CREATE NEW Products -->
+					<button type="submit" class="btn btn-primary btn-lg" ng-disabled="productForm.$invalid" ng-click="createTodo();">Add to Database</button>
 				</form>
 			</div>
 		</div>
 		
 	 
 
-<div class="span9">  
+<div class="jumbotron text-center">  
 	<div class="well well-small"> 
 			<br/>
 		<div> 
@@ -91,29 +139,31 @@
 			</h4>
 			<h3>List of Products</h3>
 			  <ul class="thumbnails">
-				<li class="span3" ng-repeat="todo in todos" style="width:253px;">
+				<li class="span3"  style="width:222px;" ng-repeat="todo in todos | filter:search | limitTo: totalDisplayed">
 			<div class="thumbnail"  style="height:300px;"> 
-					<a href="productDetail.html#/id={{todo._id}}"><img ng-src="data:image/JPEG;base64,{{todo.image}}" style="height:170px;" alt=""></a> 
+					<a href="productDetail.html#/id={{todo._id}}"><img ng-src="data:image/JPEG;base64,{{todo.image}}" style="height:170px;" alt="Product Image not Available"></a> 
 					 
 				<div class="caption">
 					  <a href="productDetail.html#/id={{todo._id}}"><h5>{{todo.name}}</h5></a>
 					  <h4 style="text-align:center"> 
 					  <a class="btn" href="#">${{todo.price}}</a>
-					  <a class="btn btn-primary" ng-click="deleteTodo(todo._id)">Delete</a></h4>
+					  <a class="btn btn-info" ng-click="deleteTodo(todo._id)">Delete</a></h4>
 				</div>
 			</div>
 				</li> 
 			  </ul>
+			  			<div class="more_listing">
+			  			<button class="btn btn-primary"><a ng-click="loadMore()" class="more_listing_btn"><b>View More Products</b></a></button>
+			</div>
 		</div>
 		<p class="text-center" ng-show="loading">
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
 		</p>
 
-			</div>
+</div>
 		</div>
 
 
 	</div>
-
 </body>
 </html>

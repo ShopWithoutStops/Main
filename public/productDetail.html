@@ -23,6 +23,9 @@
 	<style type="text/css" id="enject"></style>
 	<!-- SPELLS -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+
+	<script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/ngcart/dist/ngCart.js"></script>
 	
 	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
 	<script src="js/services/todos.js"></script> <!-- load our todo service -->
@@ -82,7 +85,8 @@
 	// ]);
 	
 			</script>
-			
+
+						
   </head>
 <body  ng-controller="mainController3">
 <div id="header">
@@ -208,7 +212,7 @@
 		</div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 		 
-			<li class="subMenu open"   ng-repeat="todo in todos | unique:'category' |orderBy : 'category' ">
+<li class="subMenu open"   ng-repeat="todo in todos | unique:'category' |orderBy : 'category' ">
 			<a href="category.html#/category={{todo.category}}"> {{todo.category | uppercase}}</a>
 				<!-- <ul>
 				<li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cameras (100) </a></li> 

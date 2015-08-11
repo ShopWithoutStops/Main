@@ -61,12 +61,8 @@
     <a class="brand" href="index.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
 		<form class="form-inline navbar-search" method="post" action="products.html" >
    
-		<input id="srchFld" class="srchTxt" type="text" />
-		  <select class="srchTxt"   >
-			<option>All</option>
-			<option ng-repeat="todo in todos | unique:'category' |orderBy : 'category' "> {{todo.category | uppercase}}</option>
-		</select> 
-		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+		<input type="text" ng-model="search" placeholder="Search by Product" />
+
     </form>
     <ul id="topMenu" class="nav pull-right">
 	 <li class=""><a href="special_offer.html">Specials Offer</a></li>
@@ -81,21 +77,22 @@
 			<script>
                 LogIn = function(){
                     var l= document.getElementById('inputEmail').value;
-                    var p= document.getElementById('inputEmail').value;
-                if(l=="admin" && p=="admin") 
+                    var p= document.getElementById('inputPassword').value;
+                if(l.trim()=="" || p.trim()=="") 
+                {
+                alert("Error");
+                }
+                else if(l=="admin" && p=="admin") 
                 {
                 alert("Success");
                     window.location = 'index2.html';
                 }
-                    else if(l.trim()=="" || p.trim()=="")
-                    {
-                    alert("Enter something");    
-                    }
-                    else
+                else
                     {
                 alert("Error");
                     }
-                }</script>
+                }
+                </script>
 			 
 			<h3>Login Block</h3>
 		  </div>
@@ -194,10 +191,11 @@
 <!-- Sidebar ================================================== -->
 	<div id="sidebar" class="span3">
 		<div class="well well-small"><h4>List of Categories</h4>
+		<input type="text" ng-model="searchCategory" placeholder="Search by Category" />
 		</div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 		 
-			<li class="subMenu open"   ng-repeat="todo in todos | unique:'category' |orderBy : 'category' ">
+			<li class="subMenu open"   ng-repeat="todo in todos | filter:searchCategory | unique:'category' |orderBy : 'category' ">
 			<a href="category.html#/category={{todo.category}}"> {{todo.category | uppercase}}</a>
 				<!-- <ul>
 				<li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cameras (100) </a></li> 
@@ -252,8 +250,8 @@
 			  </div>
 			   <div class="item">
 			  <ul class="thumbnails">
-				<li class="span3" ng-repeat="todo in todos | orderBy: 'category'" ng-if="$index < 4">
-				  <div class="thumbnail" >
+				<li class="span3" ng-repeat="todo in todos | filter:search | orderBy: 'category'" ng-if="$index < 4">
+				  <div class="thumbnail">
 				  <i class="tag"> {{todo.category}}</i>
 					<a href="productDetail.html#/id={{todo._id}}"><img ng-src="data:image/JPEG;base64,{{todo.image}}" alt="" style="height:170px; max-width:170px;"/></a>
 					<div class="caption">
@@ -293,7 +291,7 @@
 		
 		<h4>Latest Products </h4>
 			  <ul class="thumbnails">
-				<li class="span3" ng-repeat="todo in todos | orderBy: 'created_at':false" ng-if="$index <9 ">
+				<li class="span3" ng-repeat="todo in todos | filter:search | orderBy: 'created_at':false" ng-if="$index <9 ">
 				  <div class="thumbnail"  style="height:350px;"> 
 					<a href="productDetail.html#/id={{todo._id}}"><img ng-src="data:image/JPEG;base64,{{todo.image}}" style="height:170px; max-width:170px;" alt=""></a> 
 					 

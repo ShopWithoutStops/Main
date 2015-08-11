@@ -1,0 +1,20 @@
+{
+  "name": "ShopWithoutStops",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ShopWithoutStops/ShopWithoutStops",
+  "authors": [
+    "gurpreetbindra92 <gurpreet.bindra92@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "~1.4.3",
+    "ngcart": "~0.0.3-rc.2"
+  }
+}
